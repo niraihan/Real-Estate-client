@@ -67,6 +67,7 @@ const AuthProvider = ({ children }) => {
   const logOut = () => {
     setLoading(true);
     localStorage.removeItem("realestate-user");
+    setUserInfo(null);
     return signOut(auth);
   };
 

@@ -33,7 +33,7 @@ const PropertyBought = () => {
           {offers.map((item) => (
             <div key={item._id} className="card bg-base-100 border shadow">
               <figure>
-                <img src={item.image} alt={item.title} className="w-full h-48 object-cover" />
+                <img src={item.propertyImage} alt={item.title} className="w-full h-48 object-cover" />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{item.propertyTitle}</h2>
@@ -60,6 +60,7 @@ const PropertyBought = () => {
               </div>
             </div>
           ))}
+         
         </div>
       )}
     </div>

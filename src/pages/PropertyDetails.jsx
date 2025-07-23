@@ -29,6 +29,7 @@ const PropertyDetails = () => {
       return res.data;
     }
   });
+  console.log(reviews)
 
   // ✅ Wishlist handler
   const handleAddToWishlist = async () => {
@@ -48,14 +49,14 @@ const PropertyDetails = () => {
     };
 
     try {
-      const token = localStorage.getItem("access-token"); // আপনার টোকেন এখানে রাখুন
+      const token = localStorage.getItem("access-token"); // আপনার টোকেন এখানে রাখুন 
 
       const res = await axios.post("http://localhost:5000/wishlist", wishlistData, {
         headers: {
-          Authorization: `Bearer ${token}`,  // ✨ এখানে টোকেন যুক্ত করুন
+          Authorization: `Bearer ${token}`,  // ✨ এখানে টোকেন যুক্ত করুন b-149
         }
       });
-
+ 
       if (res.data.insertedId) {
         toast.success("✅ Added to Wishlist");
       } else {

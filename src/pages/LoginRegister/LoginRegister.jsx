@@ -8,7 +8,7 @@ import axios from "axios";
 
 const LoginRegister = () => {
     const [isLogin, setIsLogin] = useState(true);
-    const { createUser, login, googleLogin } = useContext(AuthContext);
+    const { createUser, signIn, googleLogin } = useContext(AuthContext);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
@@ -34,7 +34,11 @@ const LoginRegister = () => {
         } else {
             // Login
             try {
-                await login(email, password);
+                await signIn(email, password);
+                // ✅ JWT নিতে হবে এখানে
+                const res = await axios.post("http://localhost:5000/jwt", { email });
+                localStorage.setItem("token", res.data.token);
+
                 toast.success("Login Successful!");
                 navigate("/");
                 reset();
@@ -48,12 +52,18 @@ const LoginRegister = () => {
         googleLogin()
             .then(async result => {
                 const user = result.user;
+
                 await axios.post("http://localhost:5000/users", {
                     email: user.email,
                     name: user.displayName,
                     image: user.photoURL,
                     role: "user"
                 });
+
+                // ✅ Get JWT
+                const res = await axios.post("http://localhost:5000/jwt", { email: user.email });
+                localStorage.setItem("token", res.data.token);
+
                 toast.success("Google Login Successful");
                 navigate("/");
             });

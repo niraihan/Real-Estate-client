@@ -68,7 +68,7 @@ const Wishlist = () => {
                 <p>💰 ${property.priceMin} - ${property.priceMax}</p>
                 <p>Status: <span className="text-green-600">{property.verificationStatus}</span></p>
                 <div className="flex gap-2 mt-3">
-                  <Link to={`/dashboard/make-offer/${property._id}`} className="btn btn-outline btn-sm">
+                  <Link to={`/dashboard/make-offer/${property.propertyId}`} className="btn btn-outline btn-sm">
                     Make an Offer
                   </Link>
                   <button

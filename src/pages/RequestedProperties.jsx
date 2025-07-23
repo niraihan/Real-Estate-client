@@ -13,8 +13,8 @@ const RequestedProperties = () => {
   const { data: offers = [], isLoading } = useQuery({
     queryKey: ["requestedOffers", user?.email],
     queryFn: async () => {
-      // const res = await axios.get(`http://localhost:5000/offers/agent/${user.email}`);
-      const token = localStorage.getItem("access-token");
+
+      const token = localStorage.getItem("access-token"); //b-255
       const res = await axios.get(
         `http://localhost:5000/offers/agent/${user.email}`,
         {
@@ -26,13 +26,20 @@ const RequestedProperties = () => {
       return res.data;
     },
   });
-
+  console.log(offers)
   // Accept offer mutation
   const acceptMutation = useMutation({
     mutationFn: async (offerId) => {
-      return await axios.put(`http://localhost:5000/offers/accept/${offerId}`, {
-        agentEmail: user.email,
-      });
+      const token = localStorage.getItem("access-token");
+      return await axios.put(
+        `http://localhost:5000/offers/accept/${offerId}`,
+        { agentEmail: user.email },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     },
     onSuccess: () => {
       toast.success("Offer accepted successfully");
@@ -46,7 +53,16 @@ const RequestedProperties = () => {
   // Reject offer mutation
   const rejectMutation = useMutation({
     mutationFn: async (offerId) => {
-      return await axios.put(`http://localhost:5000/offers/reject/${offerId}`);
+      const token = localStorage.getItem("access-token");
+      return await axios.put(
+        `http://localhost:5000/offers/reject/${offerId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     },
     onSuccess: () => {
       toast.success("Offer rejected successfully");
@@ -56,6 +72,7 @@ const RequestedProperties = () => {
       toast.error("Failed to reject offer");
     },
   });
+
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
 
@@ -86,7 +103,12 @@ const RequestedProperties = () => {
                   <td>{offer.propertyLocation}</td>
                   <td>{offer.buyerEmail}</td>
                   <td>{offer.buyerName}</td>
-                  <td>${offer.offeredPrice.toLocaleString()}</td>
+                  {/* <td>${offer.offeredAmount.toLocaleString()}</td> */}
+                  <td>
+                    {typeof offer.offeredAmount === "number"
+                      ? `$${offer.offeredAmount.toLocaleString()}`
+                      : "N/A"}
+                  </td>
                   <td>
                     {offer.status.charAt(0).toUpperCase() + offer.status.slice(1)}
                   </td>

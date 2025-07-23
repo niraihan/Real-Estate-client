@@ -1,14 +1,15 @@
-import { Link, Navigate, NavLink } from "react-router-dom";
+import { Link,  NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 
+
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-
+ const navigate = useNavigate(); 
   const handleLogout = () => {
     logOut()
       .then(() => {
-        Navigate("/"); // ✅ Redirect to home after logout
+        navigate("/"); // ✅ Redirect to home after logout
       })
       .catch((error) => {
         console.error("Logout Error:", error);

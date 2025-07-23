@@ -10,6 +10,7 @@ const Sidebar = ({ role }) => {
         <li><Link to="/dashboard/profile">My Profile</Link></li>
         {role === 'user' && (
           <>
+           <h2 className="text-xl font-bold mb-4"> user Dashboard</h2>
             <li><Link to="/dashboard/wishlist">Wishlist</Link></li>
             <li><Link to="/dashboard/property-bought">Property Bought</Link></li> 
             <li><Link to="/dashboard/my-reviews">My Reviews</Link></li> 
@@ -21,7 +22,7 @@ const Sidebar = ({ role }) => {
             <li><Link to="/dashboard/my-added-properties">My Added Properties</Link></li>
             <li><Link to="/dashboard/requested-properties">Requested Properties</Link></li>
             <li><Link to="/dashboard/my-sold-properties">My Sold Properties</Link></li>
-            {/* <AgentDashboardLayout></AgentDashboardLayout> */}
+           
           </>
         )}
         {role === 'admin' && (

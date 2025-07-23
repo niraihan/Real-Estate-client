@@ -9,7 +9,7 @@ const LatestReviewSection = () => {
     }
   
   });
-console.log(reviews)
+// console.log(reviews)
   return (
     <div className="my-10 max-w-5xl mx-auto">
       <h2 className="text-3xl font-semibold mb-6">Latest Reviews 🌟</h2>

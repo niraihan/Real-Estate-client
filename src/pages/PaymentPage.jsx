@@ -6,7 +6,7 @@ import { Elements, CardElement, useStripe, useElements } from "@stripe/react-str
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const stripePromise = loadStripe("YOUR_STRIPE_PUBLISHABLE_KEY"); // Replace with your Stripe publishable key
+const stripePromise = loadStripe(import.meta.env.VITE_API_STRIPE_PK_KEY); // Replace with your Stripe publishable key
 
 const CheckoutForm = ({ offer }) => {
   const stripe = useStripe();
@@ -16,9 +16,22 @@ const CheckoutForm = ({ offer }) => {
   const [processing, setProcessing] = useState(false);
 
   const mutation = useMutation({
+
     mutationFn: async (paymentInfo) => {
-      return await axios.patch(`http://localhost:5000/offers/${offer._id}/pay`, paymentInfo);
+      const token = localStorage.getItem("access-token"); // ✅ তোমার JWT token
+      return await axios.patch(
+        `http://localhost:5000/offers/${offer._id}/pay`,
+        paymentInfo,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     },
+    // mutationFn: async (paymentInfo) => {
+    //   return await axios.patch(`http://localhost:5000/offers/${offer._id}/pay`, paymentInfo);
+    // },
     onSuccess: () => {
       toast.success("Payment successful!");
       queryClient.invalidateQueries(["userOffers"]);
@@ -42,7 +55,7 @@ const CheckoutForm = ({ offer }) => {
       type: "card",
       card
     });
-
+    // console.log(paymentMethod)
     if (error) {
       toast.error(error.message);
       setProcessing(false);
@@ -64,7 +77,7 @@ const CheckoutForm = ({ offer }) => {
       <p className="mb-4">Amount to pay: <strong>${offer.offeredAmount}</strong></p>
 
       <CardElement className="p-3 border rounded mb-4" options={{ hidePostalCode: true }} />
-      
+
       <button
         type="submit"
         disabled={!stripe || processing}
@@ -79,6 +92,7 @@ const CheckoutForm = ({ offer }) => {
 const PaymentPage = () => {
   const { offerId } = useParams();
 
+
   const { data: offer, isLoading } = useQuery({
     queryKey: ["offer", offerId],
     queryFn: async () => {
@@ -86,6 +100,7 @@ const PaymentPage = () => {
       return res.data;
     }
   });
+  // console.log('Offer ID:', offerId); //b-315
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
   if (!offer) return <p className="text-center mt-10">Offer not found</p>;

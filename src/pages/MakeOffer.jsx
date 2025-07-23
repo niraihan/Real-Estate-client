@@ -15,11 +15,12 @@ const MakeOffer = () => {
   const { data: property = {} } = useQuery({
     queryKey: ["singleProperty", id],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/properties/${id}`);
+      const res = await axios.get(`http://localhost:5000/properties/${id}`); //b-455
       return res.data;
     }
   });
-
+console.log(property)
+console.log("Fetched ID from URL:", id);
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
   //   const form = e.target;
@@ -80,6 +81,7 @@ const MakeOffer = () => {
       propertyLocation: property.location,
       propertyImage: property.image,
       agentName: property.agentName,
+      agentEmail:property.agentEmail,
       buyerEmail: user.email,
       buyerName: user.displayName,
       buyerImage: user.photoURL,
@@ -120,6 +122,7 @@ const MakeOffer = () => {
           <input type="text" value={property.title} className="input input-bordered" readOnly />
           <input type="text" value={property.location} className="input input-bordered" readOnly />
           <input type="text" value={property.agentName} className="input input-bordered" readOnly />
+          <input type="text" value={property.agentEmail} className="input input-bordered" readOnly />
           <input type="text" value={user.displayName} className="input input-bordered" readOnly />
           <input type="email" value={user.email} className="input input-bordered" readOnly />
           <input

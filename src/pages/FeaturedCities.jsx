@@ -4,22 +4,22 @@ const FeaturedCities = () => {
   const cities = [
     {
       name: "Dhaka",
-      image: "https://i.ibb.co/kDPhj1m/dhaka.jpg",
+      image: "https://i.ibb.co/B21SMVVt/download.jpg",
       description: "The bustling capital with vibrant urban living and top real estate opportunities.",
     },
     {
       name: "Chittagong",
-      image: "https://i.ibb.co/P4PG2qj/chittagong.jpg",
+      image: "https://i.ibb.co/4Z0TxchN/licensed-image.jpg",
       description: "A scenic port city known for hills, beaches, and growing property markets.",
     },
     {
       name: "Sylhet",
-      image: "https://i.ibb.co/tZJ7zyy/sylhet.jpg",
+      image: "https://i.ibb.co/pBs8680d/unnamed.jpg",
       description: "Lush tea gardens and serene landscapes attract both locals and expats.",
     },
     {
       name: "Rajshahi",
-      image: "https://i.ibb.co/yfj1Stg/rajshahi.jpg",
+      image: "https://i.ibb.co/7dn1gmxK/licensed-image-1.jpg",
       description: "A quiet city by the Padma river with expanding housing and business zones.",
     },
   ];

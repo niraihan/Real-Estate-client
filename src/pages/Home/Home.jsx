@@ -1,0 +1,20 @@
+import React from 'react';
+import Banner from '../../components/Banner';
+import AdvertisementSection from '../AdvertisementSection';
+import LatestReviewSection from '../LatestReviewSection';
+import FeaturedCities from '../FeaturedCities';
+import WhyChooseUs from '../WhyChooseUs';
+
+const Home = () => {
+    return (
+        <div>
+            <Banner />
+            <AdvertisementSection />
+            <LatestReviewSection />
+            <FeaturedCities />
+            <WhyChooseUs />
+        </div>
+    );
+};
+
+export default Home;

@@ -191,6 +191,8 @@ const PropertyDetails = () => {
         <ReviewModal
           propertyId={id}
           user={user}
+          agentEmail={property.agentEmail} 
+          agentName={property.agentName}  
           onClose={() => setIsModalOpen(false)}
           refetch={refetch}
         />

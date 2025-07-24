@@ -19,22 +19,29 @@ const MyReviews = () => {
         }
       });
       return res.data;
+
     }
   });
+  // console.log(reviews)
 
   // Mutation to delete review
   const deleteMutation = useMutation({
-    mutationFn: async (id) => {
-      return await axios.delete(`http://localhost:5000/reviews/${id}`);
-    },
-    onSuccess: () => {
-      toast.success("Review deleted successfully");
-      queryClient.invalidateQueries(["myReviews"]);
-    },
-    onError: () => {
-      toast.error("Failed to delete review");
-    }
-  });
+  mutationFn: async (id) => {
+    return await axios.delete(`http://localhost:5000/reviews/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      },
+    });
+  },
+  onSuccess: () => {
+    toast.success("Review deleted successfully");
+    queryClient.invalidateQueries(["myReviews"]);
+  },
+  onError: () => {
+    toast.error("Failed to delete review");
+  },
+});
+
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
 
@@ -49,13 +56,13 @@ const MyReviews = () => {
             <div key={review._id} className="card bg-base-100 shadow border p-4">
               <div className="flex items-center mb-3">
                 <img
-                  src={review.reviewerImage || "https://via.placeholder.com/50"}
-                  alt={review.reviewerName}
+                  src={review.userImage || "https://via.placeholder.com/50"}
+                  alt={review.userName}
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h3 className="font-semibold">{review.reviewerName}</h3>
-                  <p className="text-sm text-gray-500">{new Date(review.createdAt).toLocaleString()}</p>
+                  <h3 className="font-semibold">{review.userName}</h3>
+                  <p className="text-sm text-gray-500">{new Date(review.time).toLocaleString()}</p>
                 </div>
               </div>
               <p className="mb-2">
@@ -64,7 +71,7 @@ const MyReviews = () => {
               <p className="mb-2">
                 <span className="font-semibold">Agent:</span> {review.agentName}
               </p>
-              <p className="mb-4">{review.reviewDescription}</p>
+              <p className="mb-4">{review.review}</p>
               <button
                 onClick={() => deleteMutation.mutate(review._id)}
                 className="btn btn-sm btn-error"

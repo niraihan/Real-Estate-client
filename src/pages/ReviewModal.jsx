@@ -67,7 +67,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
-const ReviewModal = ({ propertyId, user, onClose, refetch, propertyTitle }) => {
+const ReviewModal = ({ propertyId, user, onClose, refetch, propertyTitle, agentEmail
+  , agentName }) => {
   const [rating, setRating] = useState(0);
 
   const handleReview = async (e) => {
@@ -83,6 +84,8 @@ const ReviewModal = ({ propertyId, user, onClose, refetch, propertyTitle }) => {
       review: reviewText,
       rating: rating || 4, // fallback rating 4 if user doesn't select
       propertyTitle,
+      agentName,
+      agentEmail,
       time: new Date().toLocaleString(),
     };
 

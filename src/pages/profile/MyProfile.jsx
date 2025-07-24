@@ -4,7 +4,7 @@ import EditProfileModal from "./EditProfileModal";
 import useRole from "../../hooks/useRole";
 
 const MyProfile = () => {
-  const { user, userInfo } = useContext(AuthContext); // 👈 userInfo যোগ করলেন
+  const { user, userInfo } = useContext(AuthContext); 
   const [role, isLoading] = useRole();
 
   if (isLoading) {
@@ -15,7 +15,7 @@ const MyProfile = () => {
     <>
       <div className="p-6 max-w-xl mx-auto bg-base-100 rounded-xl shadow-lg space-y-4 text-center">
         <img
-          src={userInfo?.photoURL || "https://i.ibb.co/2YjB3Wb/user.png"}
+          src={userInfo?.photoURL || "User image"}
           alt="User"
           className="w-24 h-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
         />

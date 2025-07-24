@@ -32,6 +32,9 @@ import AdvertiseProperty from "../pages/adminControl/AdvertiseProperty";
 import ReportedProperties from "../pages/ReportedProperties";
 import ForgetPassword from "../components/ForgetPassword";
 import AboutUs from "../pages/AboutUs";
+import DynamicProfile from "../pages/profile/DynamicProfile";
+import UserProfile from "../pages/profile/UserProfile";
+import AgentProfile from "../pages/profile/AgentProfile";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +49,7 @@ const router = createBrowserRouter([
         path: "/about",
         element: <AboutUs />,
       },
-     
+
       {
         path: "all-properties",
         element: (
@@ -75,9 +78,9 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <MyProfile />,
+            element: <DynamicProfile />,
           },
-          { path: "profile", element: <MyProfile /> },
+          { path: "user-profile", element: <UserProfile /> },
           { path: "wishlist", element: <Wishlist /> },
           { path: "make-offer/:id", element: <MakeOffer /> },
           { path: "property-bought", element: <PropertyBought /> },
@@ -85,6 +88,8 @@ const router = createBrowserRouter([
           { path: "my-reviews", element: <MyReviews /> },
 
           // Agent routes
+          { path: "agent-profile", element: <AgentProfile/> },
+          // { path: "profile", element: <MyProfile /> },
           { path: "add-property", element: <AgentRoute><AddProperty /></AgentRoute> },
           { path: "my-added-properties", element: <AgentRoute><MyAddedProperties /></AgentRoute> },
           { path: "update-property/:id", element: <AgentRoute><UpdateProperty /></AgentRoute> },

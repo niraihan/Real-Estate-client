@@ -7,6 +7,7 @@ import { AuthContext } from "../context/AuthProvider";
 
 const AddProperty = () => {
   const { user } = useContext(AuthContext);
+  // console.log(user)
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const AddProperty = () => {
     priceMin: "",
     priceMax: "",
     image: null,
+    
   });
 
   // Handle input changes
@@ -67,6 +69,7 @@ const AddProperty = () => {
         image: imageUrl,
         agentName: user.displayName,
         agentEmail: user.email,
+        agentImage: user.photoURL,
         priceMin: parseFloat(formData.priceMin),
         priceMax: parseFloat(formData.priceMax),
         verificationStatus: "pending",

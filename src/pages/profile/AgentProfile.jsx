@@ -1,28 +1,3 @@
-// import { useContext } from "react";
-// import { AuthContext } from "../../context/AuthProvider";
-
-
-// const AdminProfile = () => {
-//   const { user } = useContext(AuthContext);
-// console.log(user)
-//   return (
-//     <div className="max-w-xl mx-auto bg-base-100 p-6 rounded shadow">
-//       <h2 className="text-2xl font-bold mb-4">Admin Profile</h2>
-//       <div className="space-y-3">
-//         <img src={user.photoURL} alt="Admin" className="w-28 h-28 rounded-full" />
-
-//         <p><span className="font-semibold">Name:</span> {user.displayName}</p>
-//         <p><span className="font-semibold">Email:</span> {user.email}</p>
-//         <p><span className="font-semibold">Role:</span> Admin</p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminProfile;
-
-
-
 import { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -30,7 +5,7 @@ import { FaUserEdit } from "react-icons/fa";
 import EditProfileModal from "./EditProfileModal";
 import { AuthContext } from "../../context/AuthProvider";
 
-const AdminProfile = () => {
+const AgentProfile = () => {
   const { user } = useContext(AuthContext);
 
   const {
@@ -38,7 +13,7 @@ const AdminProfile = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["adminInfo", user?.email],
+    queryKey: ["agentInfo", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axios.get(`http://localhost:5000/users/${user.email}`);
@@ -53,13 +28,13 @@ const AdminProfile = () => {
       <div className="flex flex-col items-center gap-4">
         <img
           src={user.photoURL || "https://i.ibb.co/TkYLW7j/user.png"}
-          alt="Admin"
+          alt="Agent"
           className="w-32 h-32 rounded-full border shadow"
         />
         <h2 className="text-xl font-bold">{userInfo.name}</h2>
         <p className="text-gray-600">{userInfo.email}</p>
         {userInfo.role && (
-          <span className="badge badge-accent capitalize">
+          <span className="badge badge-secondary capitalize">
             Role: {userInfo.role}
           </span>
         )}
@@ -67,7 +42,7 @@ const AdminProfile = () => {
         {userInfo.address && <p>Address: {userInfo.address}</p>}
 
         <button
-          className="btn btn-sm btn-outline btn-accent mt-3"
+          className="btn btn-sm btn-outline btn-secondary mt-3"
           onClick={() =>
             document.getElementById("edit_profile_modal").showModal()
           }
@@ -81,4 +56,4 @@ const AdminProfile = () => {
   );
 };
 
-export default AdminProfile;
+export default AgentProfile;

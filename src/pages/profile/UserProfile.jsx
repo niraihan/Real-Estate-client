@@ -8,7 +8,7 @@ import { AuthContext } from "../../context/AuthProvider";
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
-
+console.log(user)
   const {
     data: userInfo = {},
     isLoading,

@@ -1,21 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 const AllProperties = () => {
   const [search, setSearch] = useState("");
-  const [sortOrder, setSortOrder] = useState(""); // 'asc' or 'desc'
+  const [sortOrder, setSortOrder] = useState("");
 
-  const { data: properties = [], refetch } = useQuery({
-    queryKey: ["allProperties", search, sortOrder],
+  const {
+    data: properties = [],
+    refetch,
+  } = useQuery({
+    queryKey: ["allProperties"],
     queryFn: async () => {
       const res = await axios.get(
         `http://localhost:5000/properties?search=${search}&sort=${sortOrder}`
       );
-      return res.data;
-    }
+      return res.data.filter(
+        (p) => p.status === "verified" || p.status === "sold"
+      ); //eikhane verifi O sold reject item gulo filter korchi ..aikhan ami vukkori
+    },
   });
+
+  // ✅ search বা sortOrder পরিবর্তন হলে refetch
+  useEffect(() => {
+    refetch();
+  }, [search, sortOrder, refetch]);
 
   return (
     <div className="max-w-7xl mx-auto py-10">
@@ -27,10 +37,12 @@ const AllProperties = () => {
           type="text"
           placeholder="Search by location"
           className="input input-bordered w-full"
+          value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <select
           className="select select-bordered"
+          value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
         >
           <option value="">Sort by Price</option>
@@ -64,8 +76,29 @@ const AllProperties = () => {
               <p>
                 💰 ${property.priceMin} - ${property.priceMax}
               </p>
-              <p>
-                ✅ <span className="text-green-600">{property.status}</span>
+              <p className="flex items-center gap-1">
+                {property.status === "sold" ? (
+                  <>
+                    ❌{" "}
+                    <span className="text-red-600 capitalize">
+                      {property.status}
+                    </span>
+                  </>
+                ) : property.status === "verified" ? (
+                  <>
+                    ✅{" "}
+                    <span className="text-green-600 capitalize">
+                      {property.status}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    ⚠️{" "}
+                    <span className="text-yellow-600 capitalize">
+                      {property.status}
+                    </span>
+                  </>
+                )}
               </p>
               <Link
                 to={`/property/${property._id}`}

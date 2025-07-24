@@ -214,8 +214,8 @@ const MyAddedProperties = () => {
                             : "text-red-600 font-medium"
                       }
                     >
-                      {property.status.charAt(0).toUpperCase() +
-                        property.status.slice(1)}
+                      {property.verificationStatus.charAt(0).toUpperCase() +
+                        property.verificationStatus.slice(1)}
                     </span>
                   </p>
                 </div>

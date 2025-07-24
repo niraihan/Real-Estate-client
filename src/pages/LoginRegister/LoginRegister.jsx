@@ -5,12 +5,15 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/AuthProvider";
 import axios from "axios";
+import useTitle from "../../hooks/useTitle";
 
 const LoginRegister = () => {
     const [isLogin, setIsLogin] = useState(true);
     const { createUser, signIn, googleLogin } = useContext(AuthContext);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const navigate = useNavigate();
+
+    useTitle(isLogin ? "Login" : "Register");
 
     const onSubmit = async (data) => {
         const { email, password, name, image } = data;

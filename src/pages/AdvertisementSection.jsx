@@ -7,25 +7,51 @@ const AdvertisementSection = () => {
     queryKey: ["advertisedProperties"],
     queryFn: async () => {
       const res = await axios.get("http://localhost:5000/advertised");
-       return res.data//.filter(p => p.status !== "sold"); // শুধু unsold
+      return res.data;
     }
-
   });
 
+  if (!ads.length) return null;
+
   return (
-    <div className="my-10 max-w-6xl mx-auto">
-      <h2 className="text-3xl font-semibold mb-6">Featured Properties 🏘️</h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div className="my-16 px-4 max-w-7xl mx-auto">
+      <h2 className="text-4xl font-bold text-center mb-10 text-primary">
+        Featured Properties 🏘️
+      </h2>
+
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {ads.map(p => (
-          <div key={p._id} className="card bg-base-100 shadow">
-            <figure><img src={p.image} alt={p.title} className="h-48 w-full object-cover" /></figure>
-            <div className="card-body">
-              <h2 className="card-title">{p.title}</h2>
-              <p>{p.location}</p>
-              <p>💰 ${p.priceMin} - ${p.priceMax}</p>
-              {/* <p>Status: {p.verificationStatus}</p> */}
-              <p>Buy Status: {p.status === "sold" ? "❌ Sold" : p.verificationStatus}</p>
-              <Link to={`/property/${p._id}`} className="btn btn-sm btn-outline mt-2">Details</Link>
+          <div
+            key={p._id}
+            className="card shadow-xl bg-base-100 border border-base-200 hover:shadow-2xl transition-all duration-300"
+          >
+            <figure className="h-48 overflow-hidden">
+              <img
+                src={p.image}
+                alt={p.title}
+                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
+              />
+            </figure>
+            <div className="card-body space-y-2">
+              <h2 className="card-title text-lg font-semibold">{p.title}</h2>
+              <p className="text-sm text-base-content/80">{p.location}</p>
+              <p className="text-sm">
+                💰 <span className="font-medium">${p.priceMin}</span> - <span className="font-medium">${p.priceMax}</span>
+              </p>
+              <p className="text-sm">
+                Buy Status:{" "}
+                {p.status === "sold" ? (
+                  <span className="text-error font-semibold">❌ Sold</span>
+                ) : (
+                  <span className="text-success font-medium">{p.verificationStatus}</span>
+                )}
+              </p>
+              <Link
+                to={`/property/${p._id}`}
+                className="btn btn-sm btn-outline btn-primary mt-3"
+              >
+                View Details
+              </Link>
             </div>
           </div>
         ))}

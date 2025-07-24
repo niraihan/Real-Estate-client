@@ -30,6 +30,7 @@ import ManageReviews from "../pages/adminControl/ManageReviews";
 import ManageUsers from "../pages/adminControl/ManageUsers";
 import AdvertiseProperty from "../pages/adminControl/AdvertiseProperty";
 import ReportedProperties from "../pages/ReportedProperties";
+import ForgetPassword from "../components/ForgetPassword";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +40,16 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "loginRegister", element: <LoginRegister /> },
-      { path: "all-properties", element: <AllProperties /> },
+      { path:"/forgot-password", element: <ForgetPassword /> },
+     
+      {
+        path: "all-properties",
+        element: (
+          <PrivateRoute>
+           <AllProperties></AllProperties>
+          </PrivateRoute>
+        ),
+      },
       {
         path: "property/:id",
         element: (

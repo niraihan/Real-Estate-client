@@ -131,29 +131,60 @@ const PropertyDetails = () => {
       {/* Review Section */}
       <div className="mt-10">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-2xl font-semibold">User Reviews</h3>
-          <button onClick={() => setIsModalOpen(true)} className="btn btn-sm btn-primary">Add a Review</button>
+          <h3 className="text-2xl font-semibold text-base-content">User Reviews</h3>
+          <button onClick={() => setIsModalOpen(true)} className="btn btn-sm btn-primary">
+            ➕ Add a Review
+          </button>
         </div>
 
         {reviews.length > 0 ? (
-          <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {reviews.map((review) => (
-              <div key={review._id} className="p-4 border rounded bg-base-200">
-                <div className="flex items-center gap-3 mb-2">
-                  <img src={review.userImage} className="w-10 h-10 rounded-full" />
-                  <div>
-                    <p className="font-semibold">{review.userName}</p>
-                    <p className="text-sm text-gray-400">{review.time}</p>
+              <div
+                key={review._id}
+                className="card border border-base-200 bg-base-100 shadow hover:shadow-md transition-all duration-200"
+              >
+                <div className="card-body space-y-3">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={review.userImage}
+                      alt={review.userName}
+                      className="w-12 h-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+                    />
+                    <div>
+                      <p className="font-semibold text-base-content">{review.userName}</p>
+                      <p className="text-xs text-base-content/60">{new Date(review.time).toLocaleString()}</p>
+                    </div>
                   </div>
+
+                  {/* ⭐ Rating */}
+                  <div className="rating rating-sm">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <input
+                        key={i}
+                        type="radio"
+                        name={`rating-${review._id}`}
+                        className="mask mask-star-2 bg-orange-400"
+                        checked={i === Math.round(review.rating || 4)}
+                        readOnly
+                      />
+                    ))}
+                  </div>
+
+                  <p className="text-sm text-base-content leading-relaxed">
+                    {review.review.length > 300
+                      ? review.review.slice(0, 300) + "..."
+                      : review.review}
+                  </p>
                 </div>
-                <p>{review.review}</p>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">No reviews yet.</p>
+          <p className="text-base-content/60">No reviews yet.</p>
         )}
       </div>
+
 
       {/* Review Modal */}
       {isModalOpen && (

@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import axios from "axios";
@@ -11,67 +11,26 @@ const MakeOffer = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
+  // Offer Amount & Date → to avoid uncontrolled input warning
+  const [offerAmount, setOfferAmount] = useState("");
+  const [buyingDate, setBuyingDate] = useState("");
+
   // ✅ Fetch Property Info
-  const { data: property = {} } = useQuery({
+  const { data: property = {}, isLoading } = useQuery({
     queryKey: ["singleProperty", id],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/properties/${id}`); //b-455
+      const res = await axios.get(`http://localhost:5000/properties/${id}`);
       return res.data;
     }
   });
-console.log(property)
-console.log("Fetched ID from URL:", id);
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const form = e.target;
 
-  //   const offerAmount = parseFloat(form.offerAmount.value);
-  //   const buyingDate = form.buyingDate.value;
-
-  //   // Validation
-  //   if (offerAmount < property.priceMin || offerAmount > property.priceMax) {
-  //     return toast.error("Offer must be between price range!");
-  //   }
-
-  //   const offerData = {
-  //     propertyId: id,
-  //     propertyTitle: property.title,
-  //     propertyLocation: property.location,
-  //     propertyImage: property.image,
-  //     agentName: property.agentName,
-  //     buyerEmail: user.email,
-  //     buyerName: user.displayName,
-  //     buyerImage: user.photoURL,
-  //     offeredAmount: offerAmount,
-  //     buyingDate,
-  //     status: "pending"
-  //   };
-
-
-  //   const token = localStorage.getItem("access-token");
-  //   const res = await axios.post(
-  //     "http://localhost:5000/offers",
-  //     offerData,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     }
-  //   );
-  //   if (res.data.insertedId) {
-  //     toast.success("Offer submitted successfully!");
-  //     navigate("/dashboard/property-bought");
-  //   }
-  // };
+  if (isLoading) return <p className="text-center my-10">Loading...</p>;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target;
 
-    const offerAmount = parseFloat(form.offerAmount.value);
-    const buyingDate = form.buyingDate.value;
-
-    if (offerAmount < property.priceMin || offerAmount > property.priceMax) {
+    const amount = parseFloat(offerAmount);
+    if (amount < property.priceMin || amount > property.priceMax) {
       return toast.error("Offer must be between price range!");
     }
 
@@ -81,11 +40,11 @@ console.log("Fetched ID from URL:", id);
       propertyLocation: property.location,
       propertyImage: property.image,
       agentName: property.agentName,
-      agentEmail:property.agentEmail,
+      agentEmail: property.agentEmail,
       buyerEmail: user.email,
       buyerName: user.displayName,
       buyerImage: user.photoURL,
-      offeredAmount: offerAmount,
+      offeredAmount: amount,
       buyingDate,
       status: "pending",
     };
@@ -99,17 +58,26 @@ console.log("Fetched ID from URL:", id);
 
       const res = await axios.post("http://localhost:5000/offers", offerData, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
+      toast.success("Offer submitted ");
+      navigate("/dashboard/property-bought");
+      //-----
+      // ✅ Property Update API Call (Sold)
+      // if (res.data.insertedId) {
+      //   await axios.put(`http://localhost:5000/properties/sold/${id}`, {}, {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   });
 
-      if (res.data.insertedId) {
-        toast.success("Offer submitted successfully!");
-        navigate("/dashboard/property-bought");
-      }
+      //   toast.success("Offer submitted & property marked as sold!");
+      //   navigate("/dashboard/property-bought");
+      // }
     } catch (error) {
-      console.error("Offer submission error:", error.response || error);
-      toast.error("Failed to submit offer");
+      toast.error(error?.response?.data?.message || "Failed to submit offer");
+      console.error("Offer submission error:", error);
     }
   };
 
@@ -117,28 +85,46 @@ console.log("Fetched ID from URL:", id);
     <div className="max-w-3xl mx-auto p-5 bg-base-100 rounded shadow my-10">
       <h2 className="text-2xl font-bold mb-6">Make an Offer for 🏠 {property.title}</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid md:grid-cols-2 gap-4">
-          <input type="text" value={property.title} className="input input-bordered" readOnly />
-          <input type="text" value={property.location} className="input input-bordered" readOnly />
-          <input type="text" value={property.agentName} className="input input-bordered" readOnly />
-          <input type="text" value={property.agentEmail} className="input input-bordered" readOnly />
-          <input type="text" value={user.displayName} className="input input-bordered" readOnly />
-          <input type="email" value={user.email} className="input input-bordered" readOnly />
-          <input
-            type="number"
-            name="offerAmount"
-            required
-            placeholder={`Offer Amount ($${property.priceMin} - $${property.priceMax})`}
-            className="input input-bordered"
-          />
+      {property.status === "sold" ? (
+        <div className="text-red-600 text-xl font-bold">
+          This property is already sold. You cannot make an offer.
         </div>
-        <div>
-          <label className="label">Buying Date</label>
-          <input type="date" name="buyingDate" required className="input input-bordered w-full" />
-        </div>
-        <button className="btn btn-primary mt-4">Submit Offer</button>
-      </form>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-4">
+            <input type="text" value={property.title || ""} className="input input-bordered" readOnly />
+            <input type="text" value={property.location || ""} className="input input-bordered" readOnly />
+            <input type="text" value={property.agentName || ""} className="input input-bordered" readOnly />
+            <input type="text" value={property.agentEmail || ""} className="input input-bordered" readOnly />
+            <input type="text" value={user.displayName || ""} className="input input-bordered" readOnly />
+            <input type="email" value={user.email || ""} className="input input-bordered" readOnly />
+
+            <input
+              type="number"
+              name="offerAmount"
+              required
+              value={offerAmount}
+              onChange={(e) => setOfferAmount(e.target.value)}
+              placeholder={`Offer Amount ($${property.priceMin} - $${property.priceMax})`}
+              className="input input-bordered"
+            />
+          </div>
+          <div>
+            <label className="label">Buying Date</label>
+            <input
+              type="date"
+              name="buyingDate"
+              required
+              value={buyingDate}
+              onChange={(e) => setBuyingDate(e.target.value)}
+              className="input input-bordered w-full"
+            />
+          </div>
+          <button className="btn btn-primary mt-4" type="submit">
+            Submit Offer
+          </button>
+        </form>
+      )}
     </div>
   );
 };

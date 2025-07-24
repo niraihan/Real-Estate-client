@@ -32,15 +32,36 @@ const CheckoutForm = ({ offer }) => {
     // mutationFn: async (paymentInfo) => {
     //   return await axios.patch(`http://localhost:5000/offers/${offer._id}/pay`, paymentInfo);
     // },
-    onSuccess: () => {
-      toast.success("Payment successful!");
-      queryClient.invalidateQueries(["userOffers"]);
-      navigate("/dashboard/property-bought");
-    },
-    onError: () => {
-      toast.error("Payment failed, try again.");
+    // onSuccess: () => {
+
+    //   toast.success("Payment successful!");
+    //   queryClient.invalidateQueries(["userOffers"]);
+    //   navigate("/dashboard/property-bought");
+    // },
+    // onError: () => {
+    //   toast.error("Payment failed, try again.");
+    //   setProcessing(false);
+    // }
+
+    onSuccess: async (res) => {
+      const token = localStorage.getItem("access-token");
+
+        await axios.put(
+          `http://localhost:5000/properties/sold/${offer.propertyId}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        toast.success("Offer submitted & property marked as sold!");
+        queryClient.invalidateQueries(["userOffers"]);
+        navigate("/dashboard/property-bought");
+     
       setProcessing(false);
-    }
+    },
   });
 
   const handleSubmit = async (e) => {

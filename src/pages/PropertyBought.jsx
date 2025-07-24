@@ -60,7 +60,7 @@ const PropertyBought = () => {
               </div>
             </div>
           ))}
-         
+
         </div>
       )}
     </div>

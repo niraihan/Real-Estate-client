@@ -1,2 +1,29 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* @plugin "daisyui": {
+  themes: [
+    {
+      colorfultheme: {
+        primary: "#e63946", // red
+        secondary: "#f1fa8c", // yellow
+        accent: "#2a9d8f", // green
+        neutral: "#1a1a1a",
+        "base-100": "#ffffff", // light bg
+        "base-content": "#1f2937", // dark text
+        "--rounded-box": "1rem",
+      },
+    },
+    {
+      colorfulthemeDark: {
+        primary: "#ff6b6b",
+        secondary: "#ffee58",
+        accent: "#26de81",
+        neutral: "#1a1a1a",
+        "base-100": "#121212", // dark bg
+        "base-content": "#ffffff", // light text
+        "--rounded-box": "1rem",
+      },
+    },
+  ],
+} */

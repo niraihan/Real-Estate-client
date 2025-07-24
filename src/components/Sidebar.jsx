@@ -1,36 +1,47 @@
-import { Link } from 'react-router-dom';
-// import AgentDashboardLayout from '../layOut/AgentDashboardLayout';
+import { NavLink } from 'react-router-dom';
 
 const Sidebar = ({ role }) => {
-  // console.log(role)
+  const getTitle = () => {
+    if (role === 'user') return 'User Dashboard';
+    if (role === 'agent') return 'Agent Dashboard';
+    if (role === 'admin') return 'Admin Dashboard';
+    return 'Dashboard';
+  };
+
+  const navLinkClass = ({ isActive }) =>
+    isActive
+      ? 'block px-4 py-2 bg-yellow-500 text-black font-semibold rounded'
+      : 'block px-4 py-2 hover:bg-yellow-600 hover:text-white rounded transition';
+
   return (
-    <div className="w-64 bg-gray-800 text-white p-4">
-      <h2 className="text-xl font-bold mb-4">Dashboard</h2>
+    <div className="w-64 bg-gray-900 text-white p-4 min-h-screen">
+      <h2 className="text-2xl font-bold mb-6 text-center">{getTitle()}</h2>
       <ul className="space-y-2">
-        <li><Link to="/dashboard/profile">My Profile</Link></li>
+        <li><NavLink to="/dashboard/profile" className={navLinkClass}>My Profile</NavLink></li>
+
         {role === 'user' && (
           <>
-           <h2 className="text-xl font-bold mb-4"> user Dashboard</h2>
-            <li><Link to="/dashboard/wishlist">Wishlist</Link></li>
-            <li><Link to="/dashboard/property-bought">Property Bought</Link></li> 
-            <li><Link to="/dashboard/my-reviews">My Reviews</Link></li> 
+            <li><NavLink to="/dashboard/wishlist" className={navLinkClass}>Wishlist</NavLink></li>
+            <li><NavLink to="/dashboard/property-bought" className={navLinkClass}>Property Bought</NavLink></li>
+            <li><NavLink to="/dashboard/my-reviews" className={navLinkClass}>My Reviews</NavLink></li>
           </>
         )}
+
         {role === 'agent' && (
           <>
-            <li><Link to="/dashboard/add-property">Add Property</Link></li>
-            <li><Link to="/dashboard/my-added-properties">My Added Properties</Link></li>
-            <li><Link to="/dashboard/requested-properties">Requested Properties</Link></li>
-            <li><Link to="/dashboard/my-sold-properties">My Sold Properties</Link></li>
-           
+            <li><NavLink to="/dashboard/add-property" className={navLinkClass}>Add Property</NavLink></li>
+            <li><NavLink to="/dashboard/my-added-properties" className={navLinkClass}>My Added Properties</NavLink></li>
+            <li><NavLink to="/dashboard/requested-properties" className={navLinkClass}>Requested Properties</NavLink></li>
+            <li><NavLink to="/dashboard/my-sold-properties" className={navLinkClass}>My Sold Properties</NavLink></li>
           </>
         )}
+
         {role === 'admin' && (
           <>
-            <li><Link to="/dashboard/manage-properties">Manage Properties</Link></li>
-            <li><Link to="/dashboard/manage-users">Manage Users</Link></li>
-            <li><Link to="/dashboard/manage-reviews">Manage Reviews</Link></li>
-            {/* <li><Link to="/dashboard/add-property">Add Property</Link></li> */}
+            <li><NavLink to="/dashboard/manage-properties" className={navLinkClass}>Manage Properties</NavLink></li>
+            <li><NavLink to="/dashboard/manage-users" className={navLinkClass}>Manage Users</NavLink></li>
+            <li><NavLink to="/dashboard/manage-reviews" className={navLinkClass}>Manage Reviews</NavLink></li>
+            <li><NavLink to="/dashboard/advertise-property" className={navLinkClass}>Advertise Property</NavLink></li>
           </>
         )}
       </ul>

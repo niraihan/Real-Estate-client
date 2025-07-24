@@ -6,8 +6,11 @@ import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import ReviewModal from "./ReviewModal";
 import { AuthContext } from "../context/AuthProvider";
+import useTitle from "../hooks/useTitle";
 
 const PropertyDetails = () => {
+
+
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,6 +23,8 @@ const PropertyDetails = () => {
       return res.data;
     }
   });
+
+  useTitle(property?.title ? `Details of ${property.title}` : "Property Details");
 
   // ✅ Fetch reviews
   const { data: reviews = [] } = useQuery({
@@ -56,7 +61,7 @@ const PropertyDetails = () => {
           Authorization: `Bearer ${token}`,  // ✨ এখানে টোকেন যুক্ত করুন b-149
         }
       });
- 
+
       if (res.data.insertedId) {
         toast.success("✅ Added to Wishlist");
       } else {

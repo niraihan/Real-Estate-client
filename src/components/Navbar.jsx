@@ -1,33 +1,60 @@
-import { Link,  NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 
-
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
- const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     logOut()
-      .then(() => {
-        navigate("/"); // ✅ Redirect to home after logout
-      })
-      .catch((error) => {
-        console.error("Logout Error:", error);
-      });
+      .then(() => navigate("/"))
+      .catch((error) => console.error("Logout Error:", error));
   };
+
   const navItems = (
     <>
-      <li><NavLink to="/" end>Home</NavLink></li>
-      <li><NavLink to="/all-properties">All Properties</NavLink></li>
-      {user && <li><NavLink to="/dashboard">Dashboard</NavLink></li>}
+      <li>
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) =>
+            isActive ? "text-white font-bold underline" : "hover:text-white"
+          }
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/all-properties"
+          className={({ isActive }) =>
+            isActive ? "text-white font-bold underline" : "hover:text-white"
+          }
+        >
+          All Properties
+        </NavLink>
+      </li>
+      {user && (
+        <li>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              isActive ? "text-white font-bold underline" : "hover:text-white"
+            }
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
   return (
-    <div className="navbar bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white px-4 shadow-md">
+    <div className="navbar bg-gradient-to-r from-gray-900 via-gray-800 to-gray-950 text-white shadow-md px-4 sticky top-0 z-50">
       {/* Navbar Start */}
       <div className="navbar-start">
-        {/* Mobile Hamburger Dropdown */}
+        {/* Mobile Dropdown */}
         <div className="dropdown lg:hidden">
           <label tabIndex={0} className="btn btn-ghost btn-circle text-white">
             <svg
@@ -42,21 +69,25 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-black"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow bg-base-100 rounded-box w-56 text-black dark:bg-gray-800 dark:text-white"
           >
             {navItems}
           </ul>
         </div>
 
         {/* Logo */}
-        <Link to="/" className="text-xl font-bold ml-2 lg:ml-0">
-          🏡 UrbanNest
+        
+        <Link to="/" className="text-2xl font-bold ml-2 lg:ml-0 flex items-center gap-1">
+          <img className="w-14 md:w-16 rounded-2xl bg-white" src="/public/logo.png" alt="" />
         </Link>
+        {/* <Link to="/" className="text-2xl font-bold ml-2 lg:ml-0 flex items-center gap-1">
+          🏡 <span className="text-white">UrbanNest</span>
+        </Link> */}
       </div>
 
-      {/* Navbar Center (Desktop Only) */}
+      {/* Navbar Center (Large Device) */}
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal gap-4">{navItems}</ul>
+        <ul className="menu menu-horizontal px-1 gap-4">{navItems}</ul>
       </div>
 
       {/* Navbar End */}
@@ -68,14 +99,23 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52 text-black"
+              className="mt-3 z-[1] p-3 shadow menu menu-sm dropdown-content bg-base-100 dark:bg-gray-800 rounded-box w-56 text-black dark:text-white"
             >
-              <li><p className="font-semibold">{user.displayName}</p></li>
-              <li><button onClick={handleLogout}>Logout</button></li>
+              <li>
+                <p className="font-semibold truncate">{user.displayName}</p>
+              </li>
+              <li>
+                <button onClick={handleLogout} className="hover:bg-gray-200 dark:hover:bg-gray-700">
+                  Logout
+                </button>
+              </li>
             </ul>
           </div>
         ) : (
-          <Link to="/loginRegister" className="btn btn-outline text-white border-white hover:bg-white hover:text-black">
+          <Link
+            to="/loginRegister"
+            className="btn border border-white text-white hover:bg-white hover:text-black transition duration-300"
+          >
             Login
           </Link>
         )}

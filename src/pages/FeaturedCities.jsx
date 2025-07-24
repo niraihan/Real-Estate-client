@@ -59,3 +59,15 @@ const FeaturedCities = () => {
 };
 
 export default FeaturedCities;
+
+   // ✅ Property Update API Call (Sold)
+      // if (res.data.insertedId) {
+      //   await axios.put(`http://localhost:5000/properties/sold/${id}`, {}, {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   });
+
+      //   toast.success("Offer submitted & property marked as sold!");
+      //   navigate("/dashboard/property-bought");
+      // }

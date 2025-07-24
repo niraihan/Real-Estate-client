@@ -7,8 +7,9 @@ const AdvertisementSection = () => {
     queryKey: ["advertisedProperties"],
     queryFn: async () => {
       const res = await axios.get("http://localhost:5000/advertised");
-      return res.data;
+       return res.data//.filter(p => p.status !== "sold"); // শুধু unsold
     }
+
   });
 
   return (
@@ -22,7 +23,8 @@ const AdvertisementSection = () => {
               <h2 className="card-title">{p.title}</h2>
               <p>{p.location}</p>
               <p>💰 ${p.priceMin} - ${p.priceMax}</p>
-              <p>Status: {p.verificationStatus}</p>
+              {/* <p>Status: {p.verificationStatus}</p> */}
+              <p>Buy Status: {p.status === "sold" ? "❌ Sold" : p.verificationStatus}</p>
               <Link to={`/property/${p._id}`} className="btn btn-sm btn-outline mt-2">Details</Link>
             </div>
           </div>

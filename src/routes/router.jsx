@@ -58,6 +58,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         children: [
+          {
+            index: true,
+            element: <MyProfile />,
+          },
           { path: "profile", element: <MyProfile /> },
           { path: "wishlist", element: <Wishlist /> },
           { path: "make-offer/:id", element: <MakeOffer /> },

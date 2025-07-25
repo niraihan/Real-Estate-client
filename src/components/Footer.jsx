@@ -15,7 +15,7 @@ const Footer = () => {
 
           {/* Brand Info */}
           <div>
-            <h2 className="text-2xl font-bold text-primary mb-3">UrbanNest</h2>
+            <h2 className="text-2xl font-bold text-black mb-3"><span className="text-yellow-500">Urban</span> Nest</h2>
             <p className="text-sm opacity-80 mb-4">
               Find your dream property with ease and trust. Discover premium listings and trusted agents.
             </p>
@@ -66,8 +66,8 @@ const Footer = () => {
           <div>
             <h6 className="footer-title text-lg font-semibold mb-2">Legal</h6>
             <ul className="space-y-2 text-sm">
-              <li><a className="link link-hover">Terms & Conditions</a></li>
-              <li><a className="link link-hover">Privacy Policy</a></li>
+              <li><Link to="/terms" className="link link-hover">Terms & Conditions</Link></li>
+              <li><Link to="/privacy" className="link link-hover">Privacy Policy</Link></li>
               <li><Link to="/faq" className="link link-hover">FAQ</Link></li>
             </ul>
           </div>

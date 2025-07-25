@@ -233,9 +233,9 @@ const Navbar = () => {
             <img
               src="/logo.png"
               alt="UrbanNest Logo"
-              className="w-16 h-12 rounded-xl bg-white p-1"
+              className="w-16  rounded-xl bg-yellow-500 p-1"
             />
-            <span className="text-xl font-bold hidden sm:inline">UrbanNest</span>
+            <span className="text-xl font-bold hidden sm:inline"><span className="text-yellow-500">Urban</span>Nest</span>
           </Link>
         </div>
 

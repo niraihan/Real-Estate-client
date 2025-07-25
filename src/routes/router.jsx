@@ -37,6 +37,8 @@ import UserProfile from "../pages/profile/UserProfile";
 import AgentProfile from "../pages/profile/AgentProfile";
 import Faq from "../pages/Faq";
 import ContactUs from "../pages/orthers page/ContactUs";
+import TermsAndConditions from "../pages/orthers page/TermsAndConditions";
+import PrivacyPolicy from "../pages/orthers page/PrivacyPolicy";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,8 @@ const router = createBrowserRouter([
       { path: "loginRegister", element: <LoginRegister /> },
       { path: "/forgot-password", element: <ForgetPassword /> },
       { path: "/faq", element: <Faq /> },
+      { path: "/terms", element: <TermsAndConditions /> },
+      { path: "/privacy", element: <PrivacyPolicy /> },
       {
         path: "/contact",
         element: <ContactUs />

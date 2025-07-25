@@ -83,7 +83,7 @@ const AuthProvider = ({ children }) => {
 
       if (currentUser?.email) {
         axios
-          .post("http://localhost:5000/jwt", { email: currentUser.email })
+          .post("https://real-estate-server-gamma.vercel.app/jwt", { email: currentUser.email })
           .then((res) => {
             localStorage.setItem("access-token", res.data.token);
             setLoading(false);
@@ -199,7 +199,7 @@ export default AuthProvider;
 //       setLoading(false);
 
 //       if (loggedUser?.email) {
-//         axios.post("http://localhost:5000/jwt", { email: loggedUser.email })
+//         axios.post("https://real-estate-server-gamma.vercel.app/jwt", { email: loggedUser.email })
 //           .then(res => {
 //             localStorage.setItem("access-token", res.data.token);
 //           });

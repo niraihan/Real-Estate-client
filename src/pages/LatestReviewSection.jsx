@@ -13,7 +13,7 @@ const LatestReviewSection = () => {
   const { data: reviews = [] } = useQuery({
     queryKey: ["latestReviews"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/latest/reviews");
+      const res = await fetch("https://real-estate-server-gamma.vercel.app/latest/reviews");
       return res.json();
     }
   });
@@ -34,7 +34,7 @@ const LatestReviewSection = () => {
     // };
 
     try {
-      await axios.post("http://localhost:5000/reviews", review, {
+      await axios.post("https://real-estate-server-gamma.vercel.app/reviews", review, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

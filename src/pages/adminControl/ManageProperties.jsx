@@ -9,8 +9,8 @@ const ManageProperties = () => {
   const { data: properties = [], isLoading } = useQuery({
     queryKey: ["allProperties"],
     queryFn: async () => {
-      // const res = await axios.get("http://localhost:5000/admin/properties");
-      const res = await axios.get("http://localhost:5000/admin/properties", {
+      // const res = await axios.get("https://real-estate-server-gamma.vercel.app/admin/properties");
+      const res = await axios.get("https://real-estate-server-gamma.vercel.app/admin/properties", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access-token")}`
         }
@@ -25,8 +25,8 @@ const ManageProperties = () => {
 const verifyMutation = useMutation({
   mutationFn: async (id) => {
     return await axios.patch(
-      `http://localhost:5000/admin/properties/verify/${id}`,
-      {}, // body নেই তাই খালি object
+      `https://real-estate-server-gamma.vercel.app/admin/properties/verify/${id}`,
+      {}, 
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -44,7 +44,7 @@ const verifyMutation = useMutation({
 const rejectMutation = useMutation({
   mutationFn: async (id) => {
     return await axios.patch(
-      `http://localhost:5000/admin/properties/reject/${id}`,
+      `https://real-estate-server-gamma.vercel.app/admin/properties/reject/${id}`,
       {},
       {
         headers: {

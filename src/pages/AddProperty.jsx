@@ -79,7 +79,7 @@ const AddProperty = () => {
       // Save property to backend
       // const res = await axios.post("http://localhost:5000/properties", propertyData);
       const res = await axios.post(
-        "http://localhost:5000/properties",
+        "https://real-estate-server-gamma.vercel.app/properties",
         propertyData,
         {
           headers: {

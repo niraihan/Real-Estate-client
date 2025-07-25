@@ -11,7 +11,7 @@ const PropertyBought = () => {
     queryKey: ["userOffers", user?.email],
     queryFn: async () => {
       const token = localStorage.getItem("access-token");
-      const res = await axios.get(`http://localhost:5000/offers/${user.email}`, {
+      const res = await axios.get(`https://real-estate-server-gamma.vercel.app/offers/${user.email}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

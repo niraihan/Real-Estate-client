@@ -16,7 +16,7 @@ const RequestedProperties = () => {
 
       const token = localStorage.getItem("access-token"); //b-255
       const res = await axios.get(
-        `http://localhost:5000/offers/agent/${user.email}`,
+        `https://real-estate-server-gamma.vercel.app/offers/agent/${user.email}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ const RequestedProperties = () => {
     mutationFn: async (offerId) => {
       const token = localStorage.getItem("access-token");
       return await axios.put(
-        `http://localhost:5000/offers/accept/${offerId}`,
+        `https://real-estate-server-gamma.vercel.app/offers/accept/${offerId}`,
         { agentEmail: user.email },
         {
           headers: {
@@ -55,7 +55,7 @@ const RequestedProperties = () => {
     mutationFn: async (offerId) => {
       const token = localStorage.getItem("access-token");
       return await axios.put(
-        `http://localhost:5000/offers/reject/${offerId}`,
+        `https://real-estate-server-gamma.vercel.app/offers/reject/${offerId}`,
         {},
         {
           headers: {

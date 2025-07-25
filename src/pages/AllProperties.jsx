@@ -14,7 +14,7 @@ const AllProperties = () => {
     queryKey: ["allProperties"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/properties?search=${search}&sort=${sortOrder}`
+        `https://real-estate-server-gamma.vercel.app/properties?search=${search}&sort=${sortOrder}`
       );
       return res.data.filter(
         (p) => p.status === "verified" || p.status === "sold"

@@ -13,7 +13,7 @@ const MyReviews = () => {
   const { data: reviews = [], isLoading } = useQuery({
     queryKey: ["myReviews", user?.email],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/reviews/user/${user.email}`, {
+      const res = await axios.get(`https://real-estate-server-gamma.vercel.app/reviews/user/${user.email}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access-token")}`
         }
@@ -27,7 +27,7 @@ const MyReviews = () => {
   // Mutation to delete review
   const deleteMutation = useMutation({
   mutationFn: async (id) => {
-    return await axios.delete(`http://localhost:5000/reviews/${id}`, {
+    return await axios.delete(`https://real-estate-server-gamma.vercel.app/reviews/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access-token")}`,
       },

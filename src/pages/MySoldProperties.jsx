@@ -10,9 +10,9 @@ const MySoldProperties = () => {
     const { data: soldProperties = [], isLoading } = useQuery({
         queryKey: ["mySoldProperties", user?.email],
         queryFn: async () => {
-            // const res = await axios.get(`http://localhost:5000/sold-properties/agent/${user.email}`);
+            // const res = await axios.get(`https://real-estate-server-gamma.vercel.app/sold-properties/agent/${user.email}`);
             const res = await axios.get(
-                `http://localhost:5000/sold-properties/agent/${user.email}`,
+                `https://real-estate-server-gamma.vercel.app/sold-properties/agent/${user.email}`,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("access-token")}`,

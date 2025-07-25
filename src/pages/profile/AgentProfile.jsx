@@ -16,7 +16,7 @@ const AgentProfile = () => {
     queryKey: ["agentInfo", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/users/${user.email}`);
+      const res = await axios.get(`https://real-estate-server-gamma.vercel.app/users/${user.email}`);
       return res.data;
     },
   });

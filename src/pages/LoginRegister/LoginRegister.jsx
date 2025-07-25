@@ -25,7 +25,7 @@ const LoginRegister = () => {
 
             try {
                 await createUser(email, password);
-                await axios.post("http://localhost:5000/users", { email, name, image, role: "user" });
+                await axios.post("https://real-estate-server-gamma.vercel.app/users", { email, name, image, role: "user" });
                 toast.success("Registration Successful!");
                 navigate("/");
                 reset();
@@ -35,7 +35,7 @@ const LoginRegister = () => {
         } else {
             try {
                 await signIn(email, password);
-                const res = await axios.post("http://localhost:5000/jwt", { email });
+                const res = await axios.post("https://real-estate-server-gamma.vercel.app/jwt", { email });
                 localStorage.setItem("token", res.data.token);
                 toast.success("Login Successful!");
                 navigate("/");
@@ -49,13 +49,13 @@ const LoginRegister = () => {
     const handleGoogleLogin = () => {
         googleLogin().then(async (result) => {
             const user = result.user;
-            await axios.post("http://localhost:5000/users", {
+            await axios.post("https://real-estate-server-gamma.vercel.app/users", {
                 email: user.email,
                 name: user.displayName,
                 image: user.photoURL,
                 role: "user"
             });
-            const res = await axios.post("http://localhost:5000/jwt", { email: user.email });
+            const res = await axios.post("https://real-estate-server-gamma.vercel.app/jwt", { email: user.email });
             localStorage.setItem("token", res.data.token);
             toast.success("Google Login Successful");
             navigate("/");
@@ -108,13 +108,13 @@ const LoginRegister = () => {
                         {isLogin ? "Login" : "Register"}
                     </button>
 
-                    {isLogin && (
+                    {/* {isLogin && (
                         <div className="text-right">
                             <NavLink to="/forgot-password" className="text-sm text-blue-600 hover:underline transition">
                                 🔐 Forgot your password?
                             </NavLink>
                         </div>
-                    )}
+                    )} */}
 
                     <div className="divider">OR</div>
 

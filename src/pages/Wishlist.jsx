@@ -15,7 +15,7 @@ const Wishlist = () => {
     queryKey: ["wishlist", user?.email],
     queryFn: async () => {
       const token = localStorage.getItem("access-token");  // বা যেখানে টোকেন থাকে
-      const res = await axios.get(`http://localhost:5000/wishlist/${user.email}`, {
+      const res = await axios.get(`https://real-estate-server-gamma.vercel.app/wishlist/${user.email}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -29,7 +29,7 @@ const Wishlist = () => {
   const mutation = useMutation({
     mutationFn: async (id) => {
       const token = localStorage.getItem("access-token");
-      const res = await axios.delete(`http://localhost:5000/wishlist/${id}`, {
+      const res = await axios.delete(`https://real-estate-server-gamma.vercel.app/wishlist/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

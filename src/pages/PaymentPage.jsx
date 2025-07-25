@@ -20,7 +20,7 @@ const CheckoutForm = ({ offer }) => {
     mutationFn: async (paymentInfo) => {
       const token = localStorage.getItem("access-token"); // ✅ তোমার JWT token
       return await axios.patch(
-        `http://localhost:5000/offers/${offer._id}/pay`,
+        `https://real-estate-server-gamma.vercel.app/offers/${offer._id}/pay`,
         paymentInfo,
         {
           headers: {
@@ -30,7 +30,7 @@ const CheckoutForm = ({ offer }) => {
       );
     },
     // mutationFn: async (paymentInfo) => {
-    //   return await axios.patch(`http://localhost:5000/offers/${offer._id}/pay`, paymentInfo);
+    //   return await axios.patch(`https://real-estate-server-gamma.vercel.app/offers/${offer._id}/pay`, paymentInfo);
     // },
     // onSuccess: () => {
 
@@ -47,7 +47,7 @@ const CheckoutForm = ({ offer }) => {
       const token = localStorage.getItem("access-token");
 
         await axios.put(
-          `http://localhost:5000/properties/sold/${offer.propertyId}`,
+          `https://real-estate-server-gamma.vercel.app/properties/sold/${offer.propertyId}`,
           {},
           {
             headers: {
@@ -117,7 +117,7 @@ const PaymentPage = () => {
   const { data: offer, isLoading } = useQuery({
     queryKey: ["offer", offerId],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/offers/single/${offerId}`);
+      const res = await axios.get(`https://real-estate-server-gamma.vercel.app/offers/single/${offerId}`);
       return res.data;
     }
   });

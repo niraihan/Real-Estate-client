@@ -6,7 +6,7 @@ const AdvertisementSection = () => {
   const { data: ads = [] } = useQuery({
     queryKey: ["advertisedProperties"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/advertised");
+      const res = await axios.get("https://real-estate-server-gamma.vercel.app/advertised");
       return res.data;
     }
   });

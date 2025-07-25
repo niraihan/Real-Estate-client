@@ -32,7 +32,7 @@ const EditProfileModal = ({ user, refetch }) => {
   const onSubmit = async (data) => {
     try {
       const res = await axios.patch(
-        `http://localhost:5000/users/update/${user?.email}`,
+        `https://real-estate-server-gamma.vercel.app/users/update/${user?.email}`,
         data
       );
 

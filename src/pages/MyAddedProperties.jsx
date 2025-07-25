@@ -15,9 +15,9 @@
 //   const { data: properties = [], isLoading } = useQuery({
 //     queryKey: ["myProperties", user?.email],
 //     queryFn: async () => {
-//       // const res = await axios.get(`http://localhost:5000/properties/agent/${user.email}`);
+//       // const res = await axios.get(`https://real-estate-server-gamma.vercel.app/properties/agent/${user.email}`);
 //       const res = await axios.get(
-//         `http://localhost:5000/properties/agent/${user.email}`,
+//         `https://real-estate-server-gamma.vercel.app/properties/agent/${user.email}`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -31,7 +31,7 @@
 //   // Delete mutation
 //   const deleteMutation = useMutation({
 //     mutationFn: async (id) => {
-//       return await axios.delete(`http://localhost:5000/properties/${id}`);
+//       return await axios.delete(`https://real-estate-server-gamma.vercel.app/properties/${id}`);
 //     },
 //     onSuccess: () => {
 //       toast.success("Property deleted successfully");
@@ -136,7 +136,7 @@ const MyAddedProperties = () => {
     queryKey: ["myProperties", user?.email],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/properties/agent/${user.email}`,
+        `https://real-estate-server-gamma.vercel.app/properties/agent/${user.email}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -149,7 +149,11 @@ const MyAddedProperties = () => {
 
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
-      return await axios.delete(`http://localhost:5000/properties/${id}`);
+      return await axios.delete(`https://real-estate-server-gamma.vercel.app/properties/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      });
     },
     onSuccess: () => {
       toast.success("Property deleted successfully");
@@ -159,6 +163,7 @@ const MyAddedProperties = () => {
       toast.error("Failed to delete property");
     },
   });
+
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
 
@@ -207,15 +212,17 @@ const MyAddedProperties = () => {
                     <span className="font-semibold">Status:</span>{" "}
                     <span
                       className={
-                        property.status === "verified"
+                        property.verificationStatus === "verified"
                           ? "text-green-600 font-medium"
-                          : property.status === "pending"
+                          : property.verificationStatus === "pending"
                             ? "text-yellow-600 font-medium"
                             : "text-red-600 font-medium"
                       }
                     >
                       {property.verificationStatus.charAt(0).toUpperCase() +
                         property.verificationStatus.slice(1)}
+                      {/* {property.status.charAt(0).toUpperCase() +
+                        property.status.slice(1)} */}
                     </span>
                   </p>
                 </div>

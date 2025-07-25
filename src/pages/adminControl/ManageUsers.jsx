@@ -32,8 +32,7 @@ const ManageUsers = () => {
   // Mark user as fraud mutation
   const markFraud = useMutation({
     mutationFn: async (id) => {
-      // যদি আপনার ব্যাকএন্ডে /users/fraud/:id রুট না থাকে, 
-      // তাহলে এটা ঠিক করে দিতে হবে অথবা নিচের লাইন বাদ দিতে হবে
+     
       return await axiosSecure.patch(`/users/fraud/${id}`);
     },
     onSuccess: () => {

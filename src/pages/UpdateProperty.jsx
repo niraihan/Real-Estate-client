@@ -24,7 +24,7 @@ const UpdateProperty = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/properties/${id}`);
+        const res = await axios.get(`https://real-estate-server-gamma.vercel.app/properties/${id}`);
         const prop = res.data;
 
         // Only allow update if status is pending or verified
@@ -105,9 +105,9 @@ const UpdateProperty = () => {
         priceMax: parseFloat(formData.priceMax),
       };
 
-      // await axios.put(`http://localhost:5000/properties/${id}`, updatedProperty);
+      // await axios.put(`https://real-estate-server-gamma.vercel.app/properties/${id}`, updatedProperty);
       await axios.put(
-        `http://localhost:5000/properties/${id}`,
+        `https://real-estate-server-gamma.vercel.app/properties/${id}`,
         updatedProperty,
         {
           headers: {

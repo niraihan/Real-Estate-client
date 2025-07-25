@@ -19,7 +19,7 @@ const MakeOffer = () => {
   const { data: property = {}, isLoading } = useQuery({
     queryKey: ["singleProperty", id],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/properties/${id}`);
+      const res = await axios.get(`https://real-estate-server-gamma.vercel.app/properties/${id}`);
       return res.data;
     }
   });
@@ -56,7 +56,7 @@ const MakeOffer = () => {
         return;
       }
 
-      const res = await axios.post("http://localhost:5000/offers", offerData, {
+      const res = await axios.post("https://real-estate-server-gamma.vercel.app/offers", offerData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,7 +66,7 @@ const MakeOffer = () => {
       //-----
       // ✅ Property Update API Call (Sold)
       // if (res.data.insertedId) {
-      //   await axios.put(`http://localhost:5000/properties/sold/${id}`, {}, {
+      //   await axios.put(`https://real-estate-server-gamma.vercel.app/properties/sold/${id}`, {}, {
       //     headers: {
       //       Authorization: `Bearer ${token}`,
       //     },

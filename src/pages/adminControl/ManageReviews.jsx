@@ -19,7 +19,7 @@ const ManageReviews = () => {
   // const { data: reviews = [], isLoading } = useQuery({
   //   queryKey: ["allReviews"],
   //   queryFn: async () => {
-  //     const res = await axios.get("http://localhost:5000/admin/reviews");
+  //     const res = await axios.get("https://real-estate-server-gamma.vercel.app/admin/reviews");
   //     return res.data;
   //   },
   // });

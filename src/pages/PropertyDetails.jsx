@@ -19,7 +19,7 @@ const PropertyDetails = () => {
   const { data: property = {}, refetch } = useQuery({
     queryKey: ["property", id],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/properties/${id}`);
+      const res = await axios.get(`https://real-estate-server-gamma.vercel.app/properties/${id}`);
       return res.data;
     }
   });
@@ -30,7 +30,7 @@ const PropertyDetails = () => {
   const { data: reviews = [] } = useQuery({
     queryKey: ["propertyReviews", id],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/reviews/${id}`);
+      const res = await axios.get(`https://real-estate-server-gamma.vercel.app/reviews/${id}`);
       return res.data;
     }
   });
@@ -56,7 +56,7 @@ const PropertyDetails = () => {
     try {
       const token = localStorage.getItem("access-token"); // আপনার টোকেন এখানে রাখুন 
 
-      const res = await axios.post("http://localhost:5000/wishlist", wishlistData, {
+      const res = await axios.post("https://real-estate-server-gamma.vercel.app/wishlist", wishlistData, {
         headers: {
           Authorization: `Bearer ${token}`,  // ✨ এখানে টোকেন যুক্ত করুন b-149
         }
@@ -88,7 +88,7 @@ const PropertyDetails = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:5000/report-property", report);
+      const res = await axios.post("https://real-estate-server-gamma.vercel.app/report-property", report);
       if (res.data.insertedId) {
         toast.success("✅ Report submitted");
         document.getElementById("report_modal").close();

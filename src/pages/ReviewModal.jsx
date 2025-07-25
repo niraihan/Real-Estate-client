@@ -20,7 +20,7 @@
 //     try {
 //       const token = localStorage.getItem("access-token"); // আপনার JWT টোকেন নিন আমি ভুল করি 
 
-//       const res = await axios.post("http://localhost:5000/reviews", review, {
+//       const res = await axios.post("https://real-estate-server-gamma.vercel.app/reviews", review, {
 //         headers: {
 //           Authorization: `Bearer ${token}`, // হেডারে টোকেন যোগ করুন
 //         },
@@ -92,7 +92,7 @@ const ReviewModal = ({ propertyId, user, onClose, refetch, propertyTitle, agentE
     try {
       const token = localStorage.getItem("access-token");
 
-      const res = await axios.post("http://localhost:5000/reviews", review, {
+      const res = await axios.post("https://real-estate-server-gamma.vercel.app/reviews", review, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

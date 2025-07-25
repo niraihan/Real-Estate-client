@@ -8,14 +8,14 @@ const ReportedProperties = () => {
   const { data: reports = [] } = useQuery({
     queryKey: ["reportedProperties"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/admin/reports");
+      const res = await axios.get("https://real-estate-server-gamma.vercel.app/admin/reports");
       return res.data;
     },
   });
 
   const deleteMutation = useMutation({
     mutationFn: async (propertyId) => {
-      return await axios.delete(`http://localhost:5000/admin/reported-property/${propertyId}`);
+      return await axios.delete(`https://real-estate-server-gamma.vercel.app/admin/reported-property/${propertyId}`);
     },
     onSuccess: () => {
       toast.success("Property removed");

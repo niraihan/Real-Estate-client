@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const axiosSecure = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, //  http://localhost:5000
+  baseURL: import.meta.env.VITE_API_BASE_URL, //  https://real-estate-server-gamma.vercel.app
 });
 
 // Add JWT token to every request

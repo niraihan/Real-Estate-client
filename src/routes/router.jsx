@@ -36,6 +36,7 @@ import DynamicProfile from "../pages/profile/DynamicProfile";
 import UserProfile from "../pages/profile/UserProfile";
 import AgentProfile from "../pages/profile/AgentProfile";
 import Faq from "../pages/Faq";
+import ContactUs from "../pages/orthers page/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       { path: "loginRegister", element: <LoginRegister /> },
       { path: "/forgot-password", element: <ForgetPassword /> },
       { path: "/faq", element: <Faq /> },
+      {
+        path: "/contact",
+        element: <ContactUs />
+      },
       {
         path: "/about",
         element: <AboutUs />,

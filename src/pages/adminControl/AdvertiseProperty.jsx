@@ -17,15 +17,26 @@ const AdvertiseProperty = () => {
     },
   });
 
+  // const advertiseMutation = useMutation({
+  //   mutationFn: async (id) => {
+  //     return await axiosSecure.patch(`/admin/advertise/${id}`);
+  //   },
+  //   onSuccess: () => {
+  //     toast.success("Property Advertised");
+  //     queryClient.invalidateQueries(["verifiedProperties"]);
+  //   },
+  // });
+  //নিচার মত করে কোড ব্যাবহার করলে advertised আর unadvertised বাটন কাজ করবে উপরে কোডে শুধু advertised হবে ,রায়হান মনে রাখতে হবে  
   const advertiseMutation = useMutation({
-    mutationFn: async (id) => {
-      return await axiosSecure.patch(`/admin/advertise/${id}`);
+    mutationFn: async ({ id, advertised }) => {
+      return await axiosSecure.patch(`/admin/advertise/${id}`, { advertised });
     },
     onSuccess: () => {
-      toast.success("Property Advertised");
+      toast.success("Property advertisement status updated");
       queryClient.invalidateQueries(["verifiedProperties"]);
     },
   });
+
 
   if (isLoading) return <p className="text-center">Loading...</p>;
 
@@ -55,19 +66,20 @@ const AdvertiseProperty = () => {
                 <td>
                   {p.advertised ? (
                     <button
-                      onClick={() => advertiseMutation.mutate(p._id)}
+                      onClick={() => advertiseMutation.mutate({ id: p._id, advertised: false })}
                       className="btn btn-xs btn-warning"
                     >
                       Unadvertise
                     </button>
                   ) : (
                     <button
-                      onClick={() => advertiseMutation.mutate(p._id)}
+                      onClick={() => advertiseMutation.mutate({ id: p._id, advertised: true })}
                       className="btn btn-xs btn-info"
                     >
                       Advertise
                     </button>
                   )}
+
                   {/* {p.advertised ? (
                     <span className="badge badge-success">Advertised</span>
                   ) : (

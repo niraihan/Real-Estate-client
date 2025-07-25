@@ -9,13 +9,16 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-base-200 to-base-300 text-base-content dark:from-gray-900 dark:to-gray-800 transition-colors duration-300 mt-16">
+    <footer className="bg-gradient-to-br from-base-200 to-base-300 text-base-content  dark:from-gray-900 dark:to-gray-800 transition-colors duration-300 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
 
           {/* Brand Info */}
           <div>
-            <h2 className="text-2xl font-bold text-black mb-3"><span className="text-yellow-500">Urban</span> Nest</h2>
+            <h2 className="text-2xl font-bold text-gray-500 mb-3">
+              <span className="text-yellow-500">Urban</span>
+              <span className="text-black dark:text-white">Nest</span>
+            </h2>
             <p className="text-sm opacity-80 mb-4">
               Find your dream property with ease and trust. Discover premium listings and trusted agents.
             </p>

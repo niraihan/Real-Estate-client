@@ -35,6 +35,7 @@ const Sidebar = ({ role }) => {
             <li><NavLink to="/dashboard/my-added-properties" className={navLinkClass}>My Added Properties</NavLink></li>
             <li><NavLink to="/dashboard/requested-properties" className={navLinkClass}>Requested Properties</NavLink></li>
             <li><NavLink to="/dashboard/my-sold-properties" className={navLinkClass}>My Sold Properties</NavLink></li>
+            <li><NavLink to="/dashboard/selling-stats" className={navLinkClass}>Selling Statistics</NavLink></li>
           </>
         )}
 

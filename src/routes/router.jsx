@@ -39,6 +39,7 @@ import Faq from "../pages/Faq";
 import ContactUs from "../pages/orthers page/ContactUs";
 import TermsAndConditions from "../pages/orthers page/TermsAndConditions";
 import PrivacyPolicy from "../pages/orthers page/PrivacyPolicy";
+import SellingStatistics from "../pages/Agent/SellingStatistics";
 
 const router = createBrowserRouter([
   {
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
           { path: "my-reviews", element: <MyReviews /> },
 
           // Agent routes
+          {
+            path: "selling-stats",
+            element: <AgentRoute><SellingStatistics /></AgentRoute>,
+          },
           { path: "agent-profile", element: <AgentProfile /> },
           // { path: "profile", element: <MyProfile /> },
           { path: "add-property", element: <AgentRoute><AddProperty /></AgentRoute> },

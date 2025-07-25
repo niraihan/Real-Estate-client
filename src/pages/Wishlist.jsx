@@ -14,7 +14,7 @@ const Wishlist = () => {
   const { data: wishlist = [], isLoading } = useQuery({
     queryKey: ["wishlist", user?.email],
     queryFn: async () => {
-      const token = localStorage.getItem("access-token");  // বা যেখানে টোকেন থাকে
+      const token = localStorage.getItem("access-token");  
       const res = await axios.get(`https://real-estate-server-gamma.vercel.app/wishlist/${user.email}`, {
         headers: {
           Authorization: `Bearer ${token}`

@@ -26,6 +26,15 @@ const PropertyDetails = () => {
 
   useTitle(property?.title ? `Details of ${property.title}` : "Property Details");
 
+  // ✅ Check if this property is sold
+  const { data: isSold = false } = useQuery({
+    queryKey: ['soldStatus', id],
+    queryFn: async () => {
+      const res = await axios.get(`https://real-estate-server-gamma.vercel.app/sold-properties/${id}`);
+      return res.data?.sold || false;
+    },
+  });
+
   // ✅ Fetch reviews
   const { data: reviews = [] } = useQuery({
     queryKey: ["propertyReviews", id],
@@ -114,7 +123,15 @@ const PropertyDetails = () => {
           <p className="mt-2">Status: {property.verificationStatus}</p>
 
           {/* Add to Wishlist Button */}
-          <button onClick={handleAddToWishlist} className="btn btn-outline btn-sm mt-4">
+          {/* <button onClick={handleAddToWishlist} className="btn btn-outline btn-sm mt-4">
+            ❤️ Add to Wishlist
+          </button> */}
+
+          <button
+            onClick={handleAddToWishlist}
+            disabled={isSold}
+            className="btn btn-outline btn-sm mt-4"
+          >
             ❤️ Add to Wishlist
           </button>
 
@@ -191,8 +208,8 @@ const PropertyDetails = () => {
         <ReviewModal
           propertyId={id}
           user={user}
-          agentEmail={property.agentEmail} 
-          agentName={property.agentName}  
+          agentEmail={property.agentEmail}
+          agentName={property.agentName}
           onClose={() => setIsModalOpen(false)}
           refetch={refetch}
         />

@@ -35,6 +35,7 @@ import AboutUs from "../pages/AboutUs";
 import DynamicProfile from "../pages/profile/DynamicProfile";
 import UserProfile from "../pages/profile/UserProfile";
 import AgentProfile from "../pages/profile/AgentProfile";
+import Faq from "../pages/Faq";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "loginRegister", element: <LoginRegister /> },
       { path: "/forgot-password", element: <ForgetPassword /> },
+      { path: "/faq", element: <Faq /> },
       {
         path: "/about",
         element: <AboutUs />,
@@ -88,7 +90,7 @@ const router = createBrowserRouter([
           { path: "my-reviews", element: <MyReviews /> },
 
           // Agent routes
-          { path: "agent-profile", element: <AgentProfile/> },
+          { path: "agent-profile", element: <AgentProfile /> },
           // { path: "profile", element: <MyProfile /> },
           { path: "add-property", element: <AgentRoute><AddProperty /></AgentRoute> },
           { path: "my-added-properties", element: <AgentRoute><MyAddedProperties /></AgentRoute> },

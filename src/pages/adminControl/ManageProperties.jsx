@@ -21,43 +21,43 @@ const ManageProperties = () => {
     },
   });
 
- // Verify Mutation
-const verifyMutation = useMutation({
-  mutationFn: async (id) => {
-    return await axios.patch(
-      `https://real-estate-server-gamma.vercel.app/admin/properties/verify/${id}`,
-      {}, 
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      }
-    );
-  },
-  onSuccess: () => {
-    toast.success("Property verified");
-    queryClient.invalidateQueries(["allProperties"]);
-  },
-});
+  // Verify Mutation
+  const verifyMutation = useMutation({
+    mutationFn: async (id) => {
+      return await axios.patch(
+        `https://real-estate-server-gamma.vercel.app/admin/properties/verify/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        }
+      );
+    },
+    onSuccess: () => {
+      toast.success("Property verified");
+      queryClient.invalidateQueries(["allProperties"]);
+    },
+  });
 
-// Reject Mutation
-const rejectMutation = useMutation({
-  mutationFn: async (id) => {
-    return await axios.patch(
-      `https://real-estate-server-gamma.vercel.app/admin/properties/reject/${id}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      }
-    );
-  },
-  onSuccess: () => {
-    toast.success("Property rejected");
-    queryClient.invalidateQueries(["allProperties"]);
-  },
-});
+  // Reject Mutation
+  const rejectMutation = useMutation({
+    mutationFn: async (id) => {
+      return await axios.patch(
+        `https://real-estate-server-gamma.vercel.app/admin/properties/reject/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        }
+      );
+    },
+    onSuccess: () => {
+      toast.success("Property rejected");
+      queryClient.invalidateQueries(["allProperties"]);
+    },
+  });
 
   if (isLoading) return <p className="text-center">Loading...</p>;
 
@@ -98,7 +98,7 @@ const rejectMutation = useMutation({
                   <>
                     <button
                       onClick={() => verifyMutation.mutate(p._id)}
-                      className="btn btn-xs btn-success mr-2"
+                      className="btn btn-xs btn-success mb-2"
                     >
                       Verify
                     </button>
@@ -110,7 +110,7 @@ const rejectMutation = useMutation({
                     </button>
                   </>
                 )}
-                {(p.status === "verified" || p.status === "rejected") && <span className="italic">{p.status}</span>}
+                {(p.status === "verified" || p.status === "rejected" || p.status === "sold") && <span className="italic">{p.status}</span>}
               </td>
             </tr>
           ))}

@@ -101,7 +101,6 @@
 
 
 
-
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import {
@@ -115,14 +114,13 @@ import {
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../context/AuthProvider";
 
-// Custom colors for pie slices
+// Custom colors
 const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#00C49F', '#FFBB28'];
 
 const SellingStatistics = () => {
   const { user } = useContext(AuthContext);
   const [axiosSecure] = useAxiosSecure();
 
-  // Fetch sold properties for the logged-in agent
   const { data: soldProperties = [], isLoading } = useQuery({
     queryKey: ["agentSoldProperties", user?.email],
     queryFn: async () => {
@@ -132,7 +130,7 @@ const SellingStatistics = () => {
     enabled: !!user?.email,
   });
 
-  // Prepare data for the PieChart
+  // Prepare chart data
   const chartData = soldProperties.map((property) => ({
     name: property?.propertyTitle?.slice(0, 20) + "...",
     value: property?.soldPrice,
@@ -149,29 +147,31 @@ const SellingStatistics = () => {
       ) : soldProperties.length === 0 ? (
         <p className="text-center text-gray-500">No sold properties found.</p>
       ) : (
-        <div className="w-full h-[400px]">
-          <ResponsiveContainer>
-            <PieChart>
-              <Pie
-                data={chartData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={130}
-                label
-              >
-                {chartData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
+        <div className="w-full max-w-4xl mx-auto">
+          <div className="h-[300px] sm:h-[350px] md:h-[400px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={window.innerWidth < 640 ? 80 : 120} // dynamic radius
+                  label
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend verticalAlign="bottom" height={36} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       )}
     </div>

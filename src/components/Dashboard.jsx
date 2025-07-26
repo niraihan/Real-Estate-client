@@ -12,9 +12,9 @@
 //   if (isLoading) return <div className="text-center mt-10">Loading Dashboard...</div>;
 
 //   return (
-//     <div className="flex min-h-screen">
+//     <div className="flex flex-col justify-center items-center md:justify-start md:items-start md:flex-row md:min-h-screen">
 //       <Sidebar role={role} />
-//       <div className="flex-1 p-4">
+//       <div className="flex-1 p-2">
 //         <Outlet />
 //       </div>
 //     </div>
@@ -24,51 +24,45 @@
 // export default Dashboard;
 
 
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthProvider";
-import useRole from "../hooks/useRole";
-import Sidebar from "./Sidebar";
-import { Outlet } from "react-router-dom";
-import useTitle from "../hooks/useTitle";
 
-const DashboardLayout = () => {
-  const { user } = useContext(AuthContext);
-  const [role] = useRole(); // 'user' | 'agent' | 'admin'
 
-  // Dynamic title
-  useTitle(`${role?.toUpperCase() || "Dashboard"} - Real Estate Platform`);
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Sidebar from './Sidebar'; 
+import useRole from '../hooks/useRole';
+import { FaBars } from 'react-icons/fa';
+
+const Dashboard = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [role, isLoading] = useRole();
+
+  if (isLoading) return <div className="text-center mt-10">Loading Dashboard...</div>;
 
   return (
-    <div className="drawer lg:drawer-open min-h-screen bg-base-200 text-base-content">
-      {/* ✅ Drawer toggle for small screen */}
-      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-
-      <div className="drawer-content flex flex-col">
-        {/* ✅ Top Navbar for small screen */}
-        <div className="w-full sticky top-0 z-50 bg-base-100 shadow-md px-4 py-3 flex justify-between items-center lg:hidden">
-          <label htmlFor="dashboard-drawer" className="btn btn-outline btn-sm drawer-button">
-            ☰ Menu
-          </label>
-          <span className="text-lg font-semibold">
-            {role?.toUpperCase()} Dashboard
-          </span>
-        </div>
-
-        {/* ✅ Main content area */}
-        <div className="p-4 max-w-7xl mx-auto w-full">
-          <div className="bg-base-100 shadow-lg rounded-2xl p-6">
-            <Outlet />
-          </div>
-        </div>
+    <div className="flex flex-col md:flex-row min-h-screen">
+      {/* Toggle Button for small devices */}
+      <div className="md:hidden flex justify-between items-center p-4 bg-base-200 ">
+        <h2 className="text-xl font-bold">{role?.toUpperCase()} Dashboard</h2>
+        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-xl">
+          <FaBars />
+        </button>
       </div>
 
-      {/* ✅ Sidebar area */}
-      <div className="drawer-side">
-        <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-        <Sidebar role={role} />
+      {/* Sidebar */}
+      <div className={`fixed z-50 md:relative md:translate-x-0 transition-transform duration-300 ${
+        isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      } md:flex`}>
+        <Sidebar role={role} closeSidebar={() => setIsSidebarOpen(false)} />
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 p-4 bg-base-100">
+        <Outlet />
       </div>
     </div>
   );
 };
 
-export default DashboardLayout;
+export default Dashboard;
+
+

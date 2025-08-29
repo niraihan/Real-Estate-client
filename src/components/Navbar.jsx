@@ -76,7 +76,7 @@
 //         </div>
 
 //         {/* Logo */}
-        
+
 //         <Link to="/" className="text-2xl font-bold ml-2 lg:ml-0 flex items-center gap-1">
 //           <img className="w-14 md:w-16 rounded-2xl bg-white" src="/public/logo.png" alt="" />
 //         </Link>
@@ -171,6 +171,19 @@ const Navbar = () => {
           }
         >
           AboutUs
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/contact"
+          end
+          className={({ isActive }) =>
+            isActive
+              ? "font-semibold text-primary underline"
+              : "hover:text-primary transition"
+          }
+        >
+          ContactUs
         </NavLink>
       </li>
       <li>

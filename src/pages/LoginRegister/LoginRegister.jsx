@@ -108,13 +108,13 @@ const LoginRegister = () => {
                         {isLogin ? "Login" : "Register"}
                     </button>
 
-                    {/* {isLogin && (
+                    {isLogin && (
                         <div className="text-right">
                             <NavLink to="/forgot-password" className="text-sm text-blue-600 hover:underline transition">
                                 🔐 Forgot your password?
                             </NavLink>
                         </div>
-                    )} */}
+                    )}
 
                     <div className="divider">OR</div>
 
